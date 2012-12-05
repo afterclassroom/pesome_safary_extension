@@ -15,13 +15,36 @@
 
   <body>
 
-  <div class="container" id="container">
+  <div class="container" id="scontainer">
 	CONTAINER-123-
 	</div>
 
   <script type="text/javascript">
+
+var URL = 'http://localhost:3000';
+//var URL = 'http://dev.afterclassroom.com';
+//var URL = 'http://pesome.com';
+
+var activeUrl = "";
+
 function PesomeInit(event){
-  alert('bat dau chay pop');
+    alert('v == '+safari.application.activeBrowserWindow.activeTab.url);
+    var link = "";
+    /*
+    $.ajax({
+      url:  URL + '/extensions/attach_link?link='+activeUrl,
+      type: 'GET',
+      dataType: 'html',
+      data: {
+      },
+      success: function(html){
+        $('#scontainer').html(html);
+        alert('v='+html);
+      },
+      error: function(er){
+      }
+    });*/
+
 }
 
 safari.application.addEventListener("popover", PesomeInit, true);
