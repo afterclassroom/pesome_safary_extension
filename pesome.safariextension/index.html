@@ -20,9 +20,12 @@
 	</div>
 
   <script type="text/javascript">
-  $(document).ready(function(){
-    $('#container').append('abcdef ggg');
-  });
+function PesomeInit(event){
+  alert('bat dau chay pop');
+}
+
+safari.application.addEventListener("popover", PesomeInit, true);
+
 
   </script>
 
