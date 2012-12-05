@@ -18,6 +18,19 @@
 	<string>1</string>
 	<key>Chrome</key>
 	<dict>
+		<key>Popovers</key>
+		<array>
+			<dict>
+				<key>Filename</key>
+				<string>index.html</string>
+				<key>Height</key>
+				<real>600</real>
+				<key>Identifier</key>
+				<string>index_page</string>
+				<key>Width</key>
+				<real>500</real>
+			</dict>
+		</array>
 		<key>Toolbar Items</key>
 		<array>
 			<dict>
@@ -29,6 +42,8 @@
 				<string>Pesome Network</string>
 				<key>Palette Label</key>
 				<string>Pesome Palette</string>
+				<key>Popover</key>
+				<string>index_page</string>
 				<key>Tool Tip</key>
 				<string>Pesome Network</string>
 			</dict>
@@ -37,7 +52,12 @@
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
-		<dict/>
+		<dict>
+			<key>Start</key>
+			<array>
+				<string>pesome.js</string>
+			</array>
+		</dict>
 	</dict>
 	<key>Description</key>
 	<string>Safari Extension for Pesome</string>
@@ -46,7 +66,10 @@
 	<key>Permissions</key>
 	<dict>
 		<key>Website Access</key>
-		<dict/>
+		<dict>
+			<key>Level</key>
+			<string>All</string>
+		</dict>
 	</dict>
 	<key>Website</key>
 	<string>http://pesome.com</string>
