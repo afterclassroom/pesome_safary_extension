@@ -17,9 +17,12 @@
 
   <div class="container" id="scontainer">
 	CONTAINER-123-
+	<a href='' id='testid'>test</a>
 	</div>
 
   <script type="text/javascript">
+
+
 
 var URL = 'http://localhost:3000';
 //var URL = 'http://dev.afterclassroom.com';
@@ -27,27 +30,68 @@ var URL = 'http://localhost:3000';
 
 var activeUrl = "";
 
+
+
+var myRequest = new XMLHttpRequest();
+
 function PesomeInit(event){
     alert('v == '+safari.application.activeBrowserWindow.activeTab.url);
-    var link = "";
-    /*
-    $.ajax({
-      url:  URL + '/extensions/attach_link?link='+activeUrl,
-      type: 'GET',
-      dataType: 'html',
-      data: {
-      },
-      success: function(html){
-        $('#scontainer').html(html);
-        alert('v='+html);
-      },
-      error: function(er){
-      }
-    });*/
+    activeUrl = safari.application.activeBrowserWindow.activeTab.url;
+
+
+
+
+
+
+var feedbackmsg = "message goes here";
+var xmlhttp = new XMLHttpRequest();
+
+xmlhttp.open('GET', 'http://localhost:3000/extensions/attach_link?link=google1.com', true);
+xmlhttp.onreadystatechange = handleServerResponse;
+xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xmlhttp.send("html=" + feedbackmsg);
+
+function handleServerResponse() {
+    if (xmlhttp.readyState == 4) {
+        alert(xmlhttp.getAllResponseHeaders());
+        if (xmlhttp.status == 200) {
+            alert("receiv == "+xmlhttp.responseText);
+        } else {
+            alert("error == "+xmlhttp.status);
+        }
+    }
+}
+
+
+
+
+
+safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("name", "data");
+
+/*
+myRequest.open("GET", URL + '/extensions/attach_link?link='+activeUrl);
+myRequest.onload = myOnLoadHandlerFunction;
+myRequest.send();
+*/
+
+
+
+
+
+
+
 
 }
 
+
 safari.application.addEventListener("popover", PesomeInit, true);
+
+function navigateHandler(event){
+  $('#scontainer').append('about to go...;;<br/>');
+}
+safari.application.addEventListener("open", navigateHandler, true);
+
+
 
 
   </script>
