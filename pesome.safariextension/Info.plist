@@ -18,6 +18,8 @@
 	<string>1</string>
 	<key>Chrome</key>
 	<dict>
+		<key>Global Page</key>
+		<string>global.html</string>
 		<key>Popovers</key>
 		<array>
 			<dict>
@@ -34,6 +36,8 @@
 		<key>Toolbar Items</key>
 		<array>
 			<dict>
+				<key>Command</key>
+				<string>open-nettuts</string>
 				<key>Identifier</key>
 				<string>pesome_btn</string>
 				<key>Image</key>

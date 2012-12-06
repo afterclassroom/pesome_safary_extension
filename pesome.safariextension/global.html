@@ -1,0 +1,63 @@
+<!--
+Global HTML Page to control the extension logic.
+-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+
+<title>Afterclassroom</title>
+</head>
+
+
+<script type="text/javascript">
+
+
+function MyhandleMessage(){
+	alert('123');
+
+	var feedbackmsg = "message goes here";
+	var xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.open('GET', 'http://localhost:3000/extensions/attach_link?link=google1.com', true);
+	xmlhttp.onreadystatechange = handleServerResponse;
+	xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xmlhttp.send("html=" + feedbackmsg);
+
+	function handleServerResponse() {
+		if (xmlhttp.readyState == 4) {
+			alert(xmlhttp.getAllResponseHeaders());
+			if (xmlhttp.status == 200) {
+				alert("receiv == "+xmlhttp.responseText);
+				safari.extension.popovers[0].contentWindow.handleMessage(xmlhttp.responseText);
+			} else {
+				alert("error == "+xmlhttp.status);
+			}
+		}
+	}
+
+}
+
+
+// Set up the Listener
+safari.application.addEventListener("command", performCommand, false);
+
+// Function to perform when event is received
+function performCommand(event) {
+    MyhandleMessage();
+    alert('a');
+
+
+	// Make sure event comes from the button
+    if (event.command == "open-nettuts") {
+    }
+}
+</script>
+
+<body>
+aaaaaaaaaaaaaaaaaaaaaaa
+</body>
+
+</html>

@@ -9408,7 +9408,7 @@ var activeUrl = 'http://google.com';
 
 
 function handleMessage(event){
-  alert('kia');
+  //alert('kia');
 
 
 
@@ -9431,4 +9431,4 @@ function handleMessage(event){
 
 
 
-safari.self.addEventListener("message", handleMessage, false);
+//safari.self.addEventListener("message", handleMessage, false);

@@ -38,58 +38,15 @@ function PesomeInit(event){
     alert('v == '+safari.application.activeBrowserWindow.activeTab.url);
     activeUrl = safari.application.activeBrowserWindow.activeTab.url;
 
-
-
-
-
-
-var feedbackmsg = "message goes here";
-var xmlhttp = new XMLHttpRequest();
-
-xmlhttp.open('GET', 'http://localhost:3000/extensions/attach_link?link=google1.com', true);
-xmlhttp.onreadystatechange = handleServerResponse;
-xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-xmlhttp.send("html=" + feedbackmsg);
-
-function handleServerResponse() {
-    if (xmlhttp.readyState == 4) {
-        alert(xmlhttp.getAllResponseHeaders());
-        if (xmlhttp.status == 200) {
-            alert("receiv == "+xmlhttp.responseText);
-        } else {
-            alert("error == "+xmlhttp.status);
-        }
-    }
-}
-
-
-
-
-
-safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("name", "data");
-
-/*
-myRequest.open("GET", URL + '/extensions/attach_link?link='+activeUrl);
-myRequest.onload = myOnLoadHandlerFunction;
-myRequest.send();
-*/
-
-
-
-
-
-
-
+    //safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("name", "data");
 
 }
-
-
 safari.application.addEventListener("popover", PesomeInit, true);
 
-function navigateHandler(event){
-  $('#scontainer').append('about to go...;;<br/>');
+
+function handleMessage(data){
+  alert('ddd == '+data);
 }
-safari.application.addEventListener("open", navigateHandler, true);
 
 
 
