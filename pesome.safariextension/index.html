@@ -46,7 +46,10 @@ function SignInHandler(data){
 }
 
 
-
+function ShowAttachLink(data){
+  $('#main_panel').html(data);
+  safari.extension.toolbarItems[0].showPopover();
+}
 
 </script>
 
