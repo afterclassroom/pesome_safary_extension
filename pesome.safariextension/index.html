@@ -15,7 +15,7 @@
 
   <body>
 
-<div class="container" id="scontainer">
+<div class="container" id="main_panel">
 </div>
 
 <script type="text/javascript">
@@ -24,7 +24,19 @@
 var myRequest = new XMLHttpRequest();
 
 function handleMessage(data){
-  $('#scontainer').html(data);
+  $('#main_panel').html(data);
+
+  var str_action = $(data).find('#form_signin').attr('action');
+
+
+
+  $('#main_panel').find('.btn-signin').eq(0).click(function(){
+    safari.extension.popovers[0].hide();
+    safari.extension.globalPage.contentWindow.waitForMessage3();
+
+  });
+
+
   safari.extension.toolbarItems[0].showPopover();
 }
 
