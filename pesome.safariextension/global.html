@@ -26,14 +26,17 @@ Global HTML Page to control the extension logic.
 
 
 <script type="text/javascript">
+var URL = 'http://localhost:3000';
+//var URL = 'http://dev.afterclassroom.com';
+//var URL = 'http://pesome.com';
 
+var activeUrl;
 
-function MyhandleMessage(){
-	alert('123');
-
+function PesomeInit(){
+  activeUrl = safari.application.activeBrowserWindow.activeTab.url
 
   $.ajax({
-      url: 'http://localhost:3000/extensions/attach_link?link=google1.com',
+      url: URL + '/extensions/attach_link?link='+activeUrl,
       type: 'GET',
       dataType: 'html',
       data: {
@@ -42,7 +45,7 @@ function MyhandleMessage(){
         safari.extension.popovers[0].contentWindow.handleMessage(html);
       },
       error: function(er){
-        alert('loi xra');
+        alert('Operation Failed. Please try again.');
       }
     });
 }
@@ -52,7 +55,7 @@ function MyhandleMessage(){
 safari.application.addEventListener("command", performCommand, false);
 
 function performCommand(event) {
-    MyhandleMessage();
+    PesomeInit();
 }
 </script>
 

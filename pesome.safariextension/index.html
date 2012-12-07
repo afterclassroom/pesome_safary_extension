@@ -15,34 +15,13 @@
 
   <body>
 
-  <div class="container" id="scontainer">
-	CONTAINER-123-
-	<a href='' id='testid'>test</a>
-	</div>
+<div class="container" id="scontainer">
+</div>
 
-  <script type="text/javascript">
-
-
-
-var URL = 'http://localhost:3000';
-//var URL = 'http://dev.afterclassroom.com';
-//var URL = 'http://pesome.com';
-
-var activeUrl = "";
-
+<script type="text/javascript">
 
 
 var myRequest = new XMLHttpRequest();
-
-function PesomeInit(event){
-    alert('v == '+safari.application.activeBrowserWindow.activeTab.url);
-    activeUrl = safari.application.activeBrowserWindow.activeTab.url;
-
-    //safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("name", "data");
-
-}
-safari.application.addEventListener("popover", PesomeInit, true);
-
 
 function handleMessage(data){
   $('#scontainer').html(data);
@@ -52,7 +31,7 @@ function handleMessage(data){
 
 
 
-  </script>
+</script>
 
 
   </body>
