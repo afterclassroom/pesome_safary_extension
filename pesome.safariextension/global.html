@@ -42,7 +42,7 @@ function PesomeInit(){
       data: {
       },
       success: function(html){
-        safari.extension.popovers[0].contentWindow.handleMessage(html);
+        safari.extension.popovers[0].contentWindow.SignInHandler(html);
       },
       error: function(er){
         alert('Operation Failed. Please try again.');
@@ -63,8 +63,20 @@ function performCommand(event) {
 
 
 
-function waitForMessage3(){
-  alert('ff');
+function SubmitSignIn(param_arr){
+  $.ajax({
+      url: param_arr[0],
+      type: 'POST',
+      dataType: 'html',
+      data: param_arr[1],
+      success: function(html){
+      alert('a');
+        safari.extension.popovers[0].contentWindow.SignInHandler(html);
+      },
+      error: function(er){
+        alert('Operation Failed. Please try again.');
+      }
+    });
 }
 
 

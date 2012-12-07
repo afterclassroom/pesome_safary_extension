@@ -23,7 +23,7 @@
 
 var myRequest = new XMLHttpRequest();
 
-function handleMessage(data){
+function SignInHandler(data){
   $('#main_panel').html(data);
 
   var str_action = $(data).find('#form_signin').attr('action');
@@ -31,9 +31,14 @@ function handleMessage(data){
 
 
   $('#main_panel').find('.btn-signin').eq(0).click(function(){
+    var params_arr = [];
     safari.extension.popovers[0].hide();
-    safari.extension.globalPage.contentWindow.waitForMessage3();
+    params_arr.push(str_action);
 
+    var form_signIn = $('#main_panel').find('#form_signin').serialize();
+    params_arr.push(form_signIn);
+
+    safari.extension.globalPage.contentWindow.SubmitSignIn(params_arr);
   });
 
 

@@ -56,12 +56,7 @@
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
-		<dict>
-			<key>Start</key>
-			<array>
-				<string>pesome.js</string>
-			</array>
-		</dict>
+		<dict/>
 	</dict>
 	<key>Description</key>
 	<string>Safari Extension for Pesome</string>
