@@ -70,8 +70,22 @@ function SubmitSignIn(param_arr){
       dataType: 'html',
       data: param_arr[1],
       success: function(html){
-      alert('a');
-        safari.extension.popovers[0].contentWindow.SignInHandler(html);
+
+        var strAlr = $(html).find('#flash_error').text();
+        var intr = strAlr.indexOf('email or password.');
+        //alert('++'+strAlr+'||a = '+intr);
+        //alert('c == '+ (strAlr==='Invalid email or password.') );
+        //var result = (strAlr==='Invalid email or password.');
+        //alert('v = '+result);
+
+
+        if ( $(html).find('#flash_error').text() == 'Invalid email or password.' ){
+          alert('wrong');
+        }else {
+          alert('right');
+        }
+
+        //safari.extension.popovers[0].contentWindow.SignInHandler(html);
       },
       error: function(er){
         alert('Operation Failed. Please try again.');
