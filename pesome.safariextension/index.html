@@ -45,7 +45,8 @@ safari.application.addEventListener("popover", PesomeInit, true);
 
 
 function handleMessage(data){
-  alert('DU LIEU TRA VE TU AJAX CALL'+data);
+  $('#scontainer').html(data);
+  safari.extension.toolbarItems[0].showPopover();
 }
 
 
