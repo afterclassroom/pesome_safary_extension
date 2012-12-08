@@ -208,7 +208,32 @@ function AttachLinkHandler(){
     $('#main_panel').find('.signout').click(function(){
 	  SignOut(str_link);
     });
+	var mypost_link = $('#main_panel').find('.myTick').attr('href');
+	$('#main_panel').find('.myTick').attr('href','javascript:;');
+	$('#main_panel').find('.myTick').click(function(){
+        LinkHandler(mypost_link);
+    });
+    var home_link = $('#main_panel').find('#linkto_classroom').attr('href');
+    $('#main_panel').find('#linkto_classroom').attr('href','javascript:;');
+	$('#main_panel').find('#linkto_classroom').click(function(){
+        LinkHandler(home_link);
+     });
+
+    var original_link = $('#main_panel').find('#link').attr('href');
+    $('#main_panel').find('#link').attr('href','javascript:;');
+	$('#main_panel').find('#link').click(function(){
+        LinkHandler(original_link);
+    });
+
+
+    //END link handler
 }
+
+function LinkHandler(slink){
+	safari.extension.popovers[0].hide();
+	safari.application.activeBrowserWindow.openTab().url = slink;
+}
+
 function SignOut(str_link){
   $('#main_panel').html('PLEASE WAIT...');
 	$.ajax({
