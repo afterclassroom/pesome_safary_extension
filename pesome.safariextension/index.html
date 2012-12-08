@@ -129,83 +129,79 @@ function AttachLinkHandler(){
 		$('#main_panel').find("#tags").select2({
 			tags : $('#main_panel').find('#tag_list').val().split(',')
 		});
-
-		//BEGIN: handler for petopics list
-		var timeout;
-		function hidepanel() {
-			$('#main_panel').find('#tick_to_click').hide();
-		}
-
-		function doTimeout() {
-			clearTimeout(timeout);
-			timeout = setTimeout(hidepanel, 100);
-		}
-		$('#main_panel').find('.click-ctick').click(function() {
-			clearTimeout(timeout);
-			$('#main_panel').find("#tick_to_click").show();
-		});
-		$('#main_panel').find('#tick_to_click').mouseleave(doTimeout);
-		//END: handler for petopics list
-		//BEGIN HANDLER for checkbox click and reclick
-		$('#main_panel').find('#fldcheckbox').click(function(){
-			if($(this).is(':checked'))
-			{
-				$('#main_panel').find('#images_carousel').hide();
-			}
-			else
-			{
-				$('#main_panel').find('#images_carousel').show();
-			}
-		});
-		//END HANDLER for checkbox click and reclick
-		//BEGIN HANDLER FOR CAROUSEL
-
-		if ($('#main_panel').find("#images_carousel").length > 0){
-			var slider = $('#main_panel').find("#images_carousel").
-			carousel({
-				interval: 5000000
-			}).bind('slid', function() {
-				$('#main_panel').find('#link_image').val($('#main_panel').find('div.carousel-inner div.active img').attr('src'));
-			});
-		}
-		//END HANDLER FOR CAROUSEL
-
-		var str_action = $('#main_panel').find('#form_tick').attr('action');
-		$('#main_panel').find('#send_bt').click(function(){
-			//BEGIN validation for valid form before submit
-			if ( $('input[name="classroom_ids[]"]:checked').length > 0 ){
-
-				//BEGIN handle checkbox No thumbnail
-				if ($('#main_panel').find('#fldcheckbox').is(':checked')) {
-					$('#link_image').remove();
-				}
-				//LOADING WAIT...
-
-				var values = $('#main_panel').find('#form_tick').serialize();
-
-				$.ajax({
-					url: str_action,
-					type: 'POST',
-					dataType: 'html',
-					data: values,
-					success: function(html){
-						$('#main_panel').html(html);
-					},
-					error: function(er){
-						$('#main_panel').html('Operation Failed. Please try again.');
-					}
-				});
-
-			}else {
-				$('#alertModal').modal('show');
-			}
-			//END validation for valid form before submit
-		});
-
-
-
-
 	}
+
+	//BEGIN: handler for petopics list
+	var timeout;
+	function hidepanel() {
+		$('#main_panel').find('#tick_to_click').hide();
+	}
+
+	function doTimeout() {
+		clearTimeout(timeout);
+		timeout = setTimeout(hidepanel, 100);
+	}
+	$('#main_panel').find('.click-ctick').click(function() {
+		clearTimeout(timeout);
+		$('#main_panel').find("#tick_to_click").show();
+	});
+	$('#main_panel').find('#tick_to_click').mouseleave(doTimeout);
+	//END: handler for petopics list
+	//BEGIN HANDLER for checkbox click and reclick
+	$('#main_panel').find('#fldcheckbox').click(function(){
+		if($(this).is(':checked'))
+		{
+			$('#main_panel').find('#images_carousel').hide();
+		}
+		else
+		{
+			$('#main_panel').find('#images_carousel').show();
+		}
+	});
+	//END HANDLER for checkbox click and reclick
+	//BEGIN HANDLER FOR CAROUSEL
+
+	if ($('#main_panel').find("#images_carousel").length > 0){
+		var slider = $('#main_panel').find("#images_carousel").
+		carousel({
+			interval: 5000000
+		}).bind('slid', function() {
+			$('#main_panel').find('#link_image').val($('#main_panel').find('div.carousel-inner div.active img').attr('src'));
+		});
+	}
+	//END HANDLER FOR CAROUSEL
+
+	var str_action = $('#main_panel').find('#form_tick').attr('action');
+	$('#main_panel').find('#send_bt').click(function(){
+		//BEGIN validation for valid form before submit
+		if ( $('input[name="classroom_ids[]"]:checked').length > 0 ){
+
+			//BEGIN handle checkbox No thumbnail
+			if ($('#main_panel').find('#fldcheckbox').is(':checked')) {
+				$('#link_image').remove();
+			}
+			//LOADING WAIT...
+
+			var values = $('#main_panel').find('#form_tick').serialize();
+
+			$.ajax({
+				url: str_action,
+				type: 'POST',
+				dataType: 'html',
+				data: values,
+				success: function(html){
+					$('#main_panel').html(html);
+				},
+				error: function(er){
+					$('#main_panel').html('Operation Failed. Please try again.');
+				}
+			});
+
+		}else {
+			$('#alertModal').modal('show');
+		}
+		//END validation for valid form before submit
+	});
 }
 
 </script>
