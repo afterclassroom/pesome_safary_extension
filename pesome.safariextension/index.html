@@ -67,7 +67,7 @@ function InitPopover(){
 			    if (str_action != undefined){
 			      SignInHandler();
 			    } else {
-			      AttachLinkHandler();
+			      InitPopover();
 			    }
 			}
 
@@ -201,6 +201,27 @@ function AttachLinkHandler(){
 			$('#alertModal').modal('show');
 		}
 		//END validation for valid form before submit
+	});
+	//BEGIN link handler
+	var str_link =  $('#main_panel').find('.signout').attr('href');
+    $('#main_panel').find('.signout').attr('href','javascript:;');
+    $('#main_panel').find('.signout').click(function(){
+	  LinkHandler(str_link);
+    });
+}
+function LinkHandler(str_link){
+	$.ajax({
+		url: str_link,
+		type: 'GET',
+		dataType: 'html',
+		data: {},
+		success: function(html){
+		    safari.extension.popovers[0].hide();
+			InitPopover();
+		},
+		error: function(er){
+			$('#main_panel').html('Operation Failed. Please try again.');
+		}
 	});
 }
 
