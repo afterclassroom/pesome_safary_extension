@@ -4,6 +4,7 @@
 <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap-responsive.css" rel="stylesheet">
 
 <script src="jquery-1.7.1.min.js"></script>
+<script src="select2.js"></script>
 
 
 
@@ -91,7 +92,11 @@ function SubmitSignIn(params_arr){
 }
 
 function AttachLinkHandler(){
-	$('#main_panel').html('LOGIN XONG, XY LY ATTACH');
+	if ($('#main_panel').find("#tags").length > 0) {
+		$('#main_panel').find("#tags").select2({
+			tags : $('#main_panel').find('#tag_list').val().split(',')
+		});
+	}
 }
 
 </script>
