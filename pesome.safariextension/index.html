@@ -29,6 +29,8 @@ var activeUrl;
 
 function InitPopover(){
 	activeUrl = safari.application.activeBrowserWindow.activeTab.url
+	$('#main_panel').html('PLEASE WAIT...');
+    safari.extension.toolbarItems[0].showPopover();
 
 	$.ajax({
 		url: URL + '/extensions/attach_link?link='+activeUrl,
@@ -39,7 +41,6 @@ function InitPopover(){
 		success: function(html){
 			$('#main_panel').html(html);
 			SignInHandler();
-			safari.extension.toolbarItems[0].showPopover();
 		},
 		error: function(er){
 			$('#main_panel').html('Operation Failed. Please try again.');
