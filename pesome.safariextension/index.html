@@ -6,6 +6,7 @@
 
 <script src="jquery-1.7.1.min.js"></script>
 <script src="select2.js"></script>
+<script src="bootstrap-carousel.js"></script>
 
 
 
@@ -115,7 +116,17 @@ function AttachLinkHandler(){
 		});
 		$('#main_panel').find('#tick_to_click').mouseleave(doTimeout);
 		//END: handler for petopics list
-
+		//BEGIN HANDLER FOR CAROUSEL
+		$('#main_panel').append("GIA TRI LENGTH == "+$('#main_panel').find("#images_carousel").length);
+		if ($('#main_panel').find("#images_carousel").length > 0){
+			var slider = $('#main_panel').find("#images_carousel").
+			carousel({
+				interval: 5000000
+			}).bind('slid', function() {
+				$('#main_panel').find('#link_image').val($('#main_panel').find('div.carousel-inner div.active img').attr('src'));
+			});
+		}
+		//END HANDLER FOR CAROUSEL
 
 
 
