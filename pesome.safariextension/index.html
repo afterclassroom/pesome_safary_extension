@@ -63,7 +63,12 @@ function InitPopover(){
 				SignInHandler();
 			}
 			else{
-				AttachLinkHandler();
+			    var str_action = $('#main_panel').find('#form_signin').attr('action');
+			    if (str_action != undefined){
+			      SignInHandler();
+			    } else {
+			      AttachLinkHandler();
+			    }
 			}
 
 
