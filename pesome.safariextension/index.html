@@ -7,6 +7,7 @@
 <script src="jquery-1.7.1.min.js"></script>
 <script src="select2.js"></script>
 <script src="bootstrap-carousel.js"></script>
+<script src="bootstrap-modal.js"></script>
 
 
 
@@ -20,6 +21,21 @@
 
 <div class="container" id="main_panel">
 </div>
+
+<!--Modal-->
+<div class="modal hide" id="alertModal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">x</button>
+		<h3>Alert</h3>
+	</div>
+	<div class="modal-body">
+		<p>Select Petopics</p>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+</div>
+<!--Modal-->
 
 <script type="text/javascript">
 //var URL = 'http://localhost:3000';
@@ -139,6 +155,27 @@ function AttachLinkHandler(){
 			});
 		}
 		//END HANDLER FOR CAROUSEL
+
+		var str_action = $('#main_panel').find('#form_tick').attr('action');
+		$('#main_panel').find('#send_bt').click(function(){
+			//BEGIN validation for valid form before submit
+			if ( $('input[name="classroom_ids[]"]:checked').length > 0 ){
+				var params_arr = [];
+				//BEGIN handle checkbox No thumbnail
+				if ($('#main_panel').find('#fldcheckbox').is(':checked')) {
+					$('#link_image').remove();
+				}
+				//LOADING WAIT...
+				params_arr.push(str_action);
+				var values = $('#main_panel').find('#form_tick').serialize();
+				params_arr.push(values);
+
+				$('#main_panel').html('PLEASE WAIT...');
+			}else {
+				$('#alertModal').modal('show');
+			}
+			//END validation for valid form before submit
+		});
 
 
 
