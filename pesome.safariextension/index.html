@@ -40,7 +40,7 @@ function InitPopover(){
 			safari.extension.toolbarItems[0].showPopover();
 		},
 		error: function(er){
-			alert('Operation Failed. Please try again.');
+			$('#main_panel').html('Operation Failed. Please try again.');
 		}
 	});
 
@@ -57,9 +57,14 @@ function SignInHandler(){
 		params_arr.push($('#main_panel').find('#user_email').val());
 		params_arr.push($('#main_panel').find('#user_password').val());
 		$('#main_panel').html('PLEASE WAIT...');
+		SubmitSignIn(params_arr);
+	});
+}
 
+function SubmitSignIn(params_arr){
+		$('#main_panel').html('PLEASE WAIT...');
 		$.ajax({
-			url: str_action,
+			url: params_arr[0],
 			type: 'POST',
 			dataType: 'html',
             data: {
@@ -71,17 +76,23 @@ function SignInHandler(){
             },
             success: function(html){
 				$('#main_panel').html(html);
+
+				if ( $('#main_panel').find('#flash_error').html() == "Invalid email or password."             ){
+					SignInHandler();
+				}
+				else{
+					AttachLinkHandler();
+				}
 			},
 			error: function(er){
-				alert('Operation Failed. Please try again.');
+				$('#main_panel').html('Operation Failed. Please try again.');
 			}
 		});
-
-
-	});
 }
 
-
+function AttachLinkHandler(){
+	$('#main_panel').html('LOGIN XONG, XY LY ATTACH');
+}
 
 </script>
 
