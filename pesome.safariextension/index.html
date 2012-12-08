@@ -57,7 +57,16 @@ function InitPopover(){
 		},
 		success: function(html){
 			$('#main_panel').html(html);
-			SignInHandler();
+			//SignInHandler();
+
+			if ( $('#main_panel').find('#flash_error').html() == "Invalid email or password."             ){
+				SignInHandler();
+			}
+			else{
+				AttachLinkHandler();
+			}
+
+
 		},
 		error: function(er){
 			$('#main_panel').html('Operation Failed. Please try again.');
