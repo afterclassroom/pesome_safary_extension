@@ -206,10 +206,11 @@ function AttachLinkHandler(){
 	var str_link =  $('#main_panel').find('.signout').attr('href');
     $('#main_panel').find('.signout').attr('href','javascript:;');
     $('#main_panel').find('.signout').click(function(){
-	  LinkHandler(str_link);
+	  SignOut(str_link);
     });
 }
-function LinkHandler(str_link){
+function SignOut(str_link){
+  $('#main_panel').html('PLEASE WAIT...');
 	$.ajax({
 		url: str_link,
 		type: 'GET',
