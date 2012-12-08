@@ -19,37 +19,69 @@
 </div>
 
 <script type="text/javascript">
+//var URL = 'http://localhost:3000';
+var URL = 'http://dev.afterclassroom.com';
+//var URL = 'http://pesome.com';
+
+var activeUrl;
+
+function InitPopover(){
+	activeUrl = safari.application.activeBrowserWindow.activeTab.url
+
+	$.ajax({
+		url: URL + '/extensions/attach_link?link='+activeUrl,
+		type: 'GET',
+		dataType: 'html',
+		data: {
+		},
+		success: function(html){
+			$('#main_panel').html(html);
+			SignInHandler();
+			safari.extension.toolbarItems[0].showPopover();
+		},
+		error: function(er){
+			alert('Operation Failed. Please try again.');
+		}
+	});
 
 
-var myRequest = new XMLHttpRequest();
 
-function SignInHandler(data){
-  $('#main_panel').html(data);
+}
 
-  var str_action = $(data).find('#form_signin').attr('action');
+function SignInHandler(){
+	var params_arr = [];
+	var str_action = $('#main_panel').find('#form_signin').attr('action');
+	params_arr.push(str_action);
+
+	$('#main_panel').find('.btn-signin').click(function(){
+		params_arr.push($('#main_panel').find('#user_email').val());
+		params_arr.push($('#main_panel').find('#user_password').val());
+		$('#main_panel').html('PLEASE WAIT...');
+
+		$.ajax({
+			url: str_action,
+			type: 'POST',
+			dataType: 'html',
+            data: {
+                user: {
+                    email: params_arr[1],
+                    password: params_arr[2]
+                },
+                link: activeUrl
+            },
+            success: function(html){
+				$('#main_panel').html(html);
+			},
+			error: function(er){
+				alert('Operation Failed. Please try again.');
+			}
+		});
 
 
-
-  $('#main_panel').find('.btn-signin').eq(0).click(function(){
-    var params_arr = [];
-    safari.extension.popovers[0].hide();
-    params_arr.push(str_action);
-
-    var form_signIn = $('#main_panel').find('#form_signin').serialize();
-    params_arr.push(form_signIn);
-
-    safari.extension.globalPage.contentWindow.SubmitSignIn(params_arr);
-  });
-
-
-  safari.extension.toolbarItems[0].showPopover();
+	});
 }
 
 
-function ShowAttachLink(data){
-  $('#main_panel').html(data);
-  safari.extension.toolbarItems[0].showPopover();
-}
 
 </script>
 
