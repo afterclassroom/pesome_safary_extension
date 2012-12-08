@@ -97,6 +97,28 @@ function AttachLinkHandler(){
 		$('#main_panel').find("#tags").select2({
 			tags : $('#main_panel').find('#tag_list').val().split(',')
 		});
+
+		//BEGIN: handler for petopics list
+		var timeout;
+		function hidepanel() {
+			$('#main_panel').find('#tick_to_click').hide();
+		}
+
+		function doTimeout() {
+			clearTimeout(timeout);
+			timeout = setTimeout(hidepanel, 100);
+		}
+		$('#main_panel').find('.click-ctick').click(function() {
+			clearTimeout(timeout);
+			$('#main_panel').find("#tick_to_click").show();
+		});
+		$('#main_panel').find('#tick_to_click').mouseleave(doTimeout);
+		//END: handler for petopics list
+
+
+
+
+
 	}
 }
 
