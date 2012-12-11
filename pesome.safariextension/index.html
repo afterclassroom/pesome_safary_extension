@@ -38,11 +38,12 @@
 <!--Modal-->
 
 <script type="text/javascript">
-//var URL = 'http://localhost:3000';
-var URL = 'http://dev.afterclassroom.com';
+var URL = 'http://localhost:3000';
+//var URL = 'http://dev.afterclassroom.com';
 //var URL = 'http://pesome.com';
 
 var activeUrl;
+var Singout_link="";
 
 function InitPopover(){
 	activeUrl = safari.application.activeBrowserWindow.activeTab.url
@@ -203,10 +204,10 @@ function AttachLinkHandler(){
 		//END validation for valid form before submit
 	});
 	//BEGIN link handler
-	var str_link =  $('#main_panel').find('.signout').attr('href');
+	Singout_link =  $('#main_panel').find('.signout').attr('href');
     $('#main_panel').find('.signout').attr('href','javascript:;');
     $('#main_panel').find('.signout').click(function(){
-	  SignOut(str_link);
+	  SignOut();
     });
 	var mypost_link = $('#main_panel').find('.myTick').attr('href');
 	$('#main_panel').find('.myTick').attr('href','javascript:;');
@@ -234,10 +235,10 @@ function LinkHandler(slink){
 	safari.application.activeBrowserWindow.openTab().url = slink;
 }
 
-function SignOut(str_link){
+function SignOut(){
   $('#main_panel').html('PLEASE WAIT...');
 	$.ajax({
-		url: str_link,
+		url: Singout_link,
 		type: 'GET',
 		dataType: 'html',
 		data: {},
