@@ -16,7 +16,6 @@ function performCommand(){
 
 
 function handleMessage1(){
-  alert('receive msg');
   safari.extension.popovers[0].contentWindow.SignOut();
 }
 safari.application.addEventListener("message", handleMessage1, false);
