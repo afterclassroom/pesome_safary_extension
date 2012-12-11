@@ -19,4 +19,16 @@ if ( window.location.href.indexOf(check_url) > 0 ){
 	$('#pesome_signout_btn').bind('click',function(){
 		safari.self.tab.dispatchMessage("heyExtensionBar","Klaatu barada nikto");
 	});
+	$('#pesome_signin_btn').bind('click',function(){
+		var userId = $('#user_email').val();
+		var userPass = $('#user_password').val();
+
+		var str_action = $('form#new_user').attr('action');
+		var array_param = [];
+		array_param.push(str_action);
+		array_param.push(userId);
+		array_param.push(userPass);
+		safari.self.tab.dispatchMessage("SignIn",array_param);
+	});
+
 }

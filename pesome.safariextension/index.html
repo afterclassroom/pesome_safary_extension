@@ -38,8 +38,8 @@
 <!--Modal-->
 
 <script type="text/javascript">
-var URL = 'http://localhost:3000';
-//var URL = 'http://dev.afterclassroom.com';
+//var URL = 'http://localhost:3000';
+var URL = 'http://dev.afterclassroom.com';
 //var URL = 'http://pesome.com';
 
 var activeUrl;
@@ -239,7 +239,7 @@ function SignOut(){
   $('#main_panel').html('PLEASE WAIT...');
 	$.ajax({
 		url: Singout_link,
-		type: 'GET',
+		type: 'DELETE',
 		dataType: 'html',
 		data: {},
 		success: function(html){
@@ -251,6 +251,26 @@ function SignOut(){
 		}
 	});
 }
+function SubmitSignInFromWeb(params_arr){
+		$('#main_panel').html('PLEASE WAIT...');
+		$.ajax({
+			url: params_arr[0],
+			type: 'POST',
+			dataType: 'html',
+            data: {
+                user: {
+                    email: params_arr[1],
+                    password: params_arr[2]
+                },
+                link: activeUrl
+            },
+            success: function(html){
+			},
+			error: function(er){
+			}
+		});
+}
+
 
 </script>
 

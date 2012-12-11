@@ -15,8 +15,15 @@ function performCommand(){
 }
 
 
-function handleMessage1(){
-  safari.extension.popovers[0].contentWindow.SignOut();
+function handleMessage1(msgEvent){
+  if (msgEvent.name == "SignIn"){
+  	var params_arr = msgEvent.message;
+  	//SubmitSignInFromWeb(params_arr);
+  	safari.extension.popovers[0].contentWindow.SubmitSignInFromWeb(params_arr);
+  }else{
+  	safari.extension.popovers[0].contentWindow.SignOut();
+  }
+
 }
 safari.application.addEventListener("message", handleMessage1, false);
 
