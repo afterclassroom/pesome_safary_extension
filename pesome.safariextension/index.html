@@ -374,9 +374,13 @@ function SignOut(){
 	});
 }
 function SubmitSignInFromWeb(params_arr){
-		$('#main_panel').html('PLEASE WAIT...');
+  //var strUrl = URL+params_arr[0];
+  var strUrl = URL+'/extensions/signin';
+
+  alert('all params == url=='+strUrl+'::::email=='+params_arr[1]+':::psw=='+params_arr[2]);
+
 		$.ajax({
-			url: params_arr[0],
+			url: strUrl,
 			type: 'POST',
 			dataType: 'html',
             data: {
@@ -384,11 +388,34 @@ function SubmitSignInFromWeb(params_arr){
                     email: params_arr[1],
                     password: params_arr[2]
                 },
-                link: activeUrl
+                link: 'http://google.com'
             },
             success: function(html){
+              alert('siGn in xong');
+              alert('siGn in xong == '+html);
+
+
 			},
-			error: function(er){
+			error: function(xhr, ajaxOptions, thrownError){
+			  alert('sihn in BI LOI ROI:: code == '+xhr.status);
+			}
+		});
+}
+function SubmitOutFromWeb(){
+  //var strUrl = URL+params_arr[0];
+  var strUrl = URL+'/extensions/signout';
+
+  		$.ajax({
+			url: strUrl,
+			type: 'GET',
+			dataType: 'html',
+            data: {
+            },
+            success: function(html){
+              alert('siGn OUT xong');
+			},
+			error: function(xhr, ajaxOptions, thrownError){
+			  alert('sign out BI LOI ROI:: code == '+xhr.status);
 			}
 		});
 }

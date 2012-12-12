@@ -16,17 +16,26 @@ function performCommand(){
 
 
 function handleMessage1(msgEvent){
+  alert('msgEvent.name ==== :: '+msgEvent.name);
   if (msgEvent.name == "SignIn"){
+    alert('sign IN EVENT evenr recieve');
   	var params_arr = msgEvent.message;
   	//SubmitSignInFromWeb(params_arr);
   	safari.extension.popovers[0].contentWindow.SubmitSignInFromWeb(params_arr);
   }else{
-  	safari.extension.popovers[0].contentWindow.SignOut();
+    alert('sign outr evenr recieve');
+  	safari.extension.popovers[0].contentWindow.SubmitOutFromWeb();
   }
 
 }
 safari.application.addEventListener("message", handleMessage1, false);
 
+
+function CallInjectToCheck(){
+  //alert('zz');
+  safari.application.activeBrowserWindow.activeTab.page.dispatchMessage("name","data");
+}
+safari.application.addEventListener("beforeNavigate", CallInjectToCheck, true);
 
 </script>
 

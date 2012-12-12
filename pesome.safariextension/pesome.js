@@ -9,17 +9,32 @@ var check_url = 'afterclassroom.com';
 
 //var check_url = 'localhost';
 
+safari.self.addEventListener("message", getAnswer, false);
+
+function getAnswer(theMessageEvent) {
+	//alert('try to get data');
+	//alert('userId = '+$('#userId').val());
+	//alert('password = '+$('#password').val());
+	var str_action = 'NO_NEED';
+	var userId = $('#userId').val();
+	var userPass = $('#password').val();
 
 
-
-
-
+	if (userId != "" && userPass != "" && ($('#userId').val() != undefined) && ($('#password') != undefined) ) {
+		var array_param = [];
+		array_param.push(str_action);
+		array_param.push(userId);
+		array_param.push(userPass);
+		safari.self.tab.dispatchMessage("SignIn",array_param);
+	}
+}
 
 if ( window.location.href.indexOf(check_url) > 0 ){
-	$('#pesome_signout_btn').bind('click',function(){
+  	$('#pesome_signout_btn').bind('click',function(){
 		safari.self.tab.dispatchMessage("heyExtensionBar","Klaatu barada nikto");
 	});
-	$('#pesome_signin_btn').bind('click',function(){
+	/*
+	$('input#pesome_signin_btn').bind('click',function(){
 		var userId = $('#user_email').val();
 		var userPass = $('#user_password').val();
 
@@ -30,5 +45,5 @@ if ( window.location.href.indexOf(check_url) > 0 ){
 		array_param.push(userPass);
 		safari.self.tab.dispatchMessage("SignIn",array_param);
 	});
-
+    */
 }
