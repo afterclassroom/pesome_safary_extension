@@ -6,32 +6,46 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
 
 var check_url = 'afterclassroom.com';
 //var check_url = 'pesome.com';
-
 //var check_url = 'localhost';
+
+safari.self.tab.dispatchMessage("PopOverUserSignIn","Klaatu barada nikto");
 
 safari.self.addEventListener("message", getAnswer, false);
 
 function getAnswer(theMessageEvent) {
-	//alert('try to get data');
-	//alert('userId = '+$('#userId').val());
-	//alert('password = '+$('#password').val());
-	var str_action = 'NO_NEED';
-	var userId = $('#userId').val();
-	var userPass = $('#password').val();
+	if (theMessageEvent.name == "PesomePrepare"){
+		//alert('try to get data');
+		//alert('userId = '+$('#userId').val());
+		//alert('password = '+$('#password').val());
+		var str_action = 'NO_NEED';
+		var userId = $('#userId').val();
+		var userPass = $('#password').val();
 
 
-	if (userId != "" && userPass != "" && ($('#userId').val() != undefined) && ($('#password') != undefined) ) {
-		var array_param = [];
-		array_param.push(str_action);
-		array_param.push(userId);
-		array_param.push(userPass);
-		safari.self.tab.dispatchMessage("SignIn",array_param);
+		if (userId != "" && userPass != "" && ($('#userId').val() != undefined) && ($('#password') != undefined) ) {
+			var array_param = [];
+			array_param.push(str_action);
+			array_param.push(userId);
+			array_param.push(userPass);
+			safari.self.tab.dispatchMessage("SignIn",array_param);
+		}
+	} else if (theMessageEvent.name == "DispatchFromPopOver"){
+		var user_array = theMessageEvent.message;
+		$('#user_email').val(user_array[0]);
+		$('#user_password').val(user_array[1]);
+		$("#user_email").attr('readonly','readonly');
+		$("#user_password").attr('readonly','readonly');
+		$('#pesome_signin_btn').click();
 	}
 }
 
 if ( window.location.href.indexOf(check_url) > 0 ){
+	$(document).ready(function(){
+		safari.self.tab.dispatchMessage("CloseTheSignInTab","Klaatu barada nikto");
+	});
+
   	$('#pesome_signout_btn').bind('click',function(){
-		safari.self.tab.dispatchMessage("heyExtensionBar","Klaatu barada nikto");
+		safari.self.tab.dispatchMessage("WebUserSignOut","Klaatu barada nikto");
 	});
 	/*
 	$('input#pesome_signin_btn').bind('click',function(){
@@ -46,4 +60,10 @@ if ( window.location.href.indexOf(check_url) > 0 ){
 		safari.self.tab.dispatchMessage("SignIn",array_param);
 	});
     */
+}
+
+if (window.location.href.indexOf(check_url) > 0 && window.location.href.indexOf('extensions') > 0 ){
+	$(document).ready(function(){
+		safari.self.tab.dispatchMessage("CloseTab");
+	});
 }

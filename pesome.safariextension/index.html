@@ -165,11 +165,14 @@ var URL = 'http://dev.afterclassroom.com';
 //var URL = 'http://pesome.com';
 
 var activeUrl;
-var Singout_link="";
+
+var userId;
+var userPsw;
 
 function InitPopover(){
 	activeUrl = safari.application.activeBrowserWindow.activeTab.url
 	$('#main_panel').html('PLEASE WAIT...');
+
     safari.extension.toolbarItems[0].showPopover();
 
 	$.ajax({
@@ -190,6 +193,9 @@ function InitPopover(){
 			    if (str_action != undefined){
 			      SignInHandler();
 			    } else {
+			      //$('#main_panel').prepend('id == '+ userId +':: userPsw == '+userPsw);
+
+
 			      AttachLinkHandler();
 			    }
 			}
@@ -202,7 +208,6 @@ function InitPopover(){
 	});
 
 
-
 }
 
 function SignInHandler(){
@@ -211,8 +216,11 @@ function SignInHandler(){
 	params_arr.push(str_action);
 
 	$('#main_panel').find('.btn-signin').click(function(){
-		params_arr.push($('#main_panel').find('#user_email').val());
-		params_arr.push($('#main_panel').find('#user_password').val());
+		userId = $('#main_panel').find('#user_email').val();
+		userPsw = $('#main_panel').find('#user_password').val();
+
+		params_arr.push(userId);
+		params_arr.push(userPsw);
 		$('#main_panel').html('PLEASE WAIT...');
 		SubmitSignIn(params_arr);
 	});
@@ -238,7 +246,15 @@ function SubmitSignIn(params_arr){
 					SignInHandler();
 				}
 				else{
-					AttachLinkHandler();
+				    $('#main_panel').prepend('O DAY NE:: id == '+ userId +':: userPsw == '+userPsw);
+				    safari.extension.globalPage.contentWindow.CallFromPopoverToInject(userId,userPsw,URL+'/users/sign_in');
+
+				    //
+				    //safariTab.url = URL+'/users/sign_in';
+
+
+
+					//AttachLinkHandler();
 				}
 			},
 			error: function(er){
@@ -326,10 +342,10 @@ function AttachLinkHandler(){
 		//END validation for valid form before submit
 	});
 	//BEGIN link handler
-	Singout_link =  $('#main_panel').find('.signout').attr('href');
+	var Singout_link =  $('#main_panel').find('.signout').attr('href');
     $('#main_panel').find('.signout').attr('href','javascript:;');
     $('#main_panel').find('.signout').click(function(){
-	  SignOut();
+	  SignOut(Singout_link);
     });
 	var mypost_link = $('#main_panel').find('.myTick').attr('href');
 	$('#main_panel').find('.myTick').attr('href','javascript:;');
@@ -357,11 +373,13 @@ function LinkHandler(slink){
 	safari.application.activeBrowserWindow.openTab().url = slink;
 }
 
-function SignOut(){
+function SignOut(str_url){
   $('#main_panel').html('PLEASE WAIT...');
+  safari.extension.globalPage.contentWindow.PopOverRequestSignout(URL+'/extensions/signout');
+
 	$.ajax({
-		url: Singout_link,
-		type: 'DELETE',
+		url: str_url,
+		type: 'GET',
 		dataType: 'html',
 		data: {},
 		success: function(html){
@@ -372,12 +390,13 @@ function SignOut(){
 			$('#main_panel').html('Operation Failed. Please try again.');
 		}
 	});
+
 }
 function SubmitSignInFromWeb(params_arr){
   //var strUrl = URL+params_arr[0];
   var strUrl = URL+'/extensions/signin';
 
-  alert('all params == url=='+strUrl+'::::email=='+params_arr[1]+':::psw=='+params_arr[2]);
+  //alert('all params == url=='+strUrl+'::::email=='+params_arr[1]+':::psw=='+params_arr[2]);
 
 		$.ajax({
 			url: strUrl,
@@ -391,13 +410,13 @@ function SubmitSignInFromWeb(params_arr){
                 link: 'http://google.com'
             },
             success: function(html){
-              alert('siGn in xong');
-              alert('siGn in xong == '+html);
+              //alert('siGn in xong');
+              //alert('siGn in xong == '+html);
 
 
 			},
 			error: function(xhr, ajaxOptions, thrownError){
-			  alert('sihn in BI LOI ROI:: code == '+xhr.status);
+			  $('#main_panel').html('Operation Failed. Please try again.');
 			}
 		});
 }
@@ -412,10 +431,12 @@ function SubmitOutFromWeb(){
             data: {
             },
             success: function(html){
-              alert('siGn OUT xong');
+              //alert('siGn OUT xong');
+              $('#main_panel').html('PLEASE WAIT ... ');
 			},
 			error: function(xhr, ajaxOptions, thrownError){
-			  alert('sign out BI LOI ROI:: code == '+xhr.status);
+			  $('#main_panel').html('Operation Failed. Please try again.');
+			  //alert('sign out BI LOI ROI:: code == '+xhr.status);
 			}
 		});
 }
