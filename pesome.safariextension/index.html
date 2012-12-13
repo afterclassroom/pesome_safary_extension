@@ -171,6 +171,8 @@ var userPsw;
 
 function InitPopover(){
 	activeUrl = safari.application.activeBrowserWindow.activeTab.url
+	safari.extension.globalPage.contentWindow.SetActiveTab(safari.application.activeBrowserWindow.activeTab);
+
 	$('#main_panel').html('PLEASE WAIT...');
 
     safari.extension.toolbarItems[0].showPopover();

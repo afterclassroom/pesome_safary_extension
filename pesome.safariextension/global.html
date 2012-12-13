@@ -13,6 +13,7 @@ var global_userPsw;
 var stop_sign_in_from_web = false;
 var tabToClose;
 var signInTab;
+var activeTab;
 
 
 safari.application.addEventListener("command", performCommand, false);
@@ -47,11 +48,14 @@ function handleMessage1(msgEvent){
   else if (msgEvent.name == "CloseTab"){
     ResetGlobalStuff();
   	tabToClose.close();
+  	activeTab.activate();
   }
   else if (msgEvent.name == "CloseTheSignInTab"){
     if (signInTab != undefined){
       signInTab.close();
       signInTab = undefined;
+      activeTab.activate();
+      safari.extension.popovers[0].contentWindow.InitPopover();
     }
   }
   else if (msgEvent.name == "WebUserSignOut"){//name == WebUserSignOut
@@ -92,6 +96,10 @@ function ResetGlobalStuff(){
   global_userId = undefined;
   global_userPsw = undefined;
   stop_sign_in_from_web = false;
+}
+
+function SetActiveTab(tab){
+  activeTab = tab;
 }
 
 </script>
