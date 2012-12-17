@@ -169,6 +169,7 @@ var activeUrl;
 
 var userId;
 var userPsw;
+var overalAjax;
 
 function InitPopover(){
 	activeUrl = safari.application.activeBrowserWindow.activeTab.url
@@ -177,8 +178,13 @@ function InitPopover(){
 	$('#main_panel').html('PLEASE WAIT...');
 
     safari.extension.toolbarItems[0].showPopover();
+	
+	if (overalAjax != undefined){
+		overalAjax.abort();
+		$('#main_panel').html('Please wait...');
+	}
 
-	$.ajax({
+	overalAjax = $.ajax({
 		url: URL + '/extensions/attach_link?link='+activeUrl,
 		type: 'GET',
 		dataType: 'html',
@@ -206,7 +212,7 @@ function InitPopover(){
 
 		},
 		error: function(er){
-			$('#main_panel').html('Operation Failed. Please try again.');
+			$('#main_panel').html('Operation of Attach Link Failed. Please try again.');
 		}
 	});
 
@@ -333,6 +339,25 @@ function AttachLinkHandler(){
 				data: values,
 				success: function(html){
 					$('#main_panel').html(html);
+					//BEGIN link SIGNOUT handler
+					var str_link =  $('#main_panel').find('.signout').attr('href');
+					$('#main_panel').find('.signout').attr('href','javascript:;');
+					
+					$('#main_panel').find('.signout').click(function(){
+					  SignOut(str_link);
+					});
+					var mypost_link = $('#main_panel').find('.myTick').attr('href');
+					$('#main_panel').find('.myTick').attr('href','javascript:;');
+					$('#main_panel').find('.myTick').click(function(){
+						LinkHandler(mypost_link);
+					});
+					var home_link = $('#main_panel').find('#linkto_classroom').attr('href');
+					$('#main_panel').find('#linkto_classroom').attr('href','javascript:;');
+					$('#main_panel').find('#linkto_classroom').click(function(){
+						LinkHandler(home_link);
+					 });
+					
+					//END link SIGNOUT handler					
 				},
 				error: function(er){
 					$('#main_panel').html('Operation Failed. Please try again.');
