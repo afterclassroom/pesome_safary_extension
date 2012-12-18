@@ -358,6 +358,8 @@ function AttachLinkHandler(){
 					 });
 					
 					//END link SIGNOUT handler					
+					//reset the ajax global object
+					overalAjax = undefined;
 				},
 				error: function(er){
 					$('#main_panel').html('Operation Failed. Please try again.');
